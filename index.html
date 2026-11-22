@@ -1,0 +1,235 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MEDICO | Healthcare</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<section id="landing" class="landing">
+  <header class="top">
+    <div class="brand"><b>✚</b> MEDICO</div>
+    <span>Care that connects</span>
+  </header>
+
+  <div class="hero">
+    <div>
+      <small>YOUR HEALTH, OUR PRIORITY</small>
+      <h1>Better care.<br><em>One place.</em></h1>
+      <p>Book a doctor online or request a home visit. Keep appointments, prescriptions and health records together in one simple healthcare space.</p>
+    </div>
+    <div class="hero-art">
+      <div class="orb"></div>
+      <div class="cross">✚</div>
+      <div class="steth">♡</div>
+      <div class="float f1">✦ &nbsp; Care made simple</div>
+      <div class="float f2">🩺 &nbsp; Your health hub</div>
+    </div>
+  </div>
+
+  <div class="choose">
+    <h2>Continue as</h2>
+    <p>Select your account type to sign in or create a new account.</p>
+    <div class="role-cards">
+      <button onclick="openAuth('patient')">
+        <span>🧑‍⚕️</span><strong>Patient</strong>
+        <small>Book care · View prescriptions · Reports</small><b>→</b>
+      </button>
+      <button onclick="openAuth('doctor')">
+        <span>🩺</span><strong>Doctor</strong>
+        <small>Manage appointments · Send prescriptions</small><b>→</b>
+      </button>
+      <button class="admin-role" onclick="openAuth('admin')">
+        <span>🛡️</span><strong>Admin</strong>
+        <small>Review doctor verification requests</small><b>→</b>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section id="auth" class="auth hidden">
+  <div class="authbox">
+    <div class="auth-top">
+      <div class="brand"><b>✚</b> MEDICO</div>
+      <button onclick="backHome()">← Home</button>
+    </div>
+
+    <h2 id="authTitle">Patient Login</h2>
+    <p id="authDesc">Welcome back.</p>
+
+    <div class="tabs" id="authTabs">
+      <button id="tabLogin" onclick="setMode('login')">Login</button>
+      <button id="tabRegister" onclick="setMode('register')">New Registration</button>
+    </div>
+
+    <form id="authForm">
+      <div id="nameField" class="hidden">
+        <label>Full name<input id="name" maxlength="80"></label>
+      </div>
+
+      <label>Email address
+        <input id="email" type="email" required maxlength="160">
+      </label>
+
+      <label>Password
+        <input id="password" type="password" required minlength="10">
+        <small id="passwordHint">Minimum 10 characters, including letters and numbers.</small>
+      </label>
+
+      <div id="forgotLinkWrap" style="text-align:right;margin:0 0 14px;">
+        <button
+          type="button"
+          onclick="showForgotPassword()"
+          style="background:none;border:none;color:#0b8990;font-weight:600;cursor:pointer;padding:4px 0;font-size:14px;">
+          Forgot Password?
+        </button>
+      </div>
+
+      <div id="patientExtra" class="hidden">
+        <label>Phone number<input id="phone" maxlength="25"></label>
+        <div class="two">
+          <label>Age<input id="age" type="number" min="1" max="120"></label>
+          <label>Gender
+            <select id="gender">
+              <option value="">Prefer not to say</option>
+              <option>Female</option><option>Male</option><option>Other</option>
+            </select>
+          </label>
+        </div>
+        <div class="two">
+          <label>Place<input id="patientPlace" maxlength="80" placeholder="Enter your place / town"></label>
+          <label>State<input id="patientState" maxlength="80" placeholder="Enter your state"></label>
+        </div>
+      </div>
+
+      <div id="doctorExtra" class="hidden">
+        <label>Specialization<input id="specialty" placeholder="e.g. General Physician"></label>
+        <label>Qualification<input id="qualification" placeholder="e.g. MBBS, MD"></label>
+        <label>Medical registration number<input id="registrationNumber"></label>
+        <label>Hospital name<input id="hospitalName" placeholder="Hospital / Clinic name"></label>
+        <div class="two">
+          <label>Place<input id="doctorPlace" maxlength="80" placeholder="Enter place / town"></label>
+          <label>State<input id="doctorState" maxlength="80" placeholder="Enter state"></label>
+        </div>
+
+        <div class="form-section">
+          <b>Services offered</b>
+          <p>Select at least one service.</p>
+          <label class="check-label">
+            <input type="checkbox" id="serviceOnline" checked>
+            Online consultation
+          </label>
+          <label class="check-label">
+            <input type="checkbox" id="serviceHome">
+            Doctor home visit
+          </label>
+        </div>
+
+        <div id="registrationHomeFields">
+          <label>Home visit area<input id="homeVisitArea" placeholder="e.g. West Hyderabad"></label>
+          <label>Home visit places
+            <textarea id="homeVisitPlaces" rows="2" placeholder="Enter areas / localities separated by commas"></textarea>
+          </label>
+        </div>
+
+        <small>Doctor accounts remain hidden from patients until an admin reviews the verification request.</small>
+      </div>
+
+      <div id="authError" class="error"></div>
+      <button class="btn primary full" id="authSubmit">Login</button>
+    </form>
+
+    <!-- FORGOT PASSWORD SCREEN -->
+    <div id="forgotPasswordPanel" class="hidden">
+
+      <form id="forgotPasswordForm">
+
+        <label>Registered Email
+          <input
+            id="forgotEmail"
+            type="email"
+            required
+            maxlength="160"
+            placeholder="Enter your registered email">
+        </label>
+
+        <label>New Password
+          <input
+            id="newPassword"
+            type="password"
+            required
+            minlength="10"
+            placeholder="Enter new password">
+          <small>Minimum 10 characters, including letters and numbers.</small>
+        </label>
+
+        <label>Confirm New Password
+          <input
+            id="confirmNewPassword"
+            type="password"
+            required
+            minlength="10"
+            placeholder="Re-enter new password">
+        </label>
+
+        <div id="forgotError" class="error"></div>
+
+        <button
+          type="submit"
+          class="btn primary full"
+          id="forgotSubmit">
+          Update Password
+        </button>
+
+      </form>
+
+      <button
+        type="button"
+        class="btn full"
+        onclick="backToLogin()"
+        style="margin-top:12px;">
+        ← Back to Login
+      </button>
+
+    </div>
+
+    <p class="fine">Demo application. Do not enter real patient or medical information.</p>
+  </div>
+</section>
+
+<section id="workspace" class="workspace hidden">
+  <aside class="sidebar">
+    <div class="brand"><b>✚</b> MEDICO</div>
+    <div class="side-cap">MAIN MENU</div>
+    <nav id="nav"></nav>
+
+    <div class="side-user">
+      <div class="avatar" id="avatar">M</div>
+      <div>
+        <b id="sideName">Member</b>
+        <small id="sideRole">Patient</small>
+      </div>
+    </div>
+
+    <button class="logout" onclick="logout()">↪ &nbsp; Sign out</button>
+  </aside>
+
+  <main class="main">
+    <header class="pagehead">
+      <div>
+        <h1 id="pageTitle">Overview</h1>
+        <p id="pageSub">Your healthcare at a glance.</p>
+      </div>
+      <div class="welcome">♡ &nbsp; MEDICO CARE</div>
+    </header>
+    <div id="view"></div>
+  </main>
+</section>
+
+<div id="toast"></div>
+<script src="/app.js" defer></script>
+</body>
+</html>
